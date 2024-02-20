@@ -18,16 +18,43 @@ Atualize o irmão;)
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <stdbool.h>
+
+//red = 1
+//black = 0
 
 typedef struct node
 {
     int id;
+    bool color;
     struct node *left;
     struct node *right;
 } node, *PONT;
 
 typedef struct redBlackTree{
     PONT root;
-} redBlack;
+} redBlack, *redBlackTree;
 
-void iniciarArvore(){}
+void iniciarArvore(redBlackTree rb){
+    rb->root = NULL;
+}
+
+PONT criarNo(int id){
+    PONT novoNo = (PONT)malloc(sizeof(struct node));
+    novoNo->id = id;
+    novoNo->left = NULL;
+    novoNo->right = NULL;
+
+    return novoNo;
+}
+
+void insert(redBlackTree rb, PONT no){
+    if (rb->root == NULL)
+    {
+    no->color = 1;
+    rb->root = no;
+    }else{
+        
+    }
+    
+}

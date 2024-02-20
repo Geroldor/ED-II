@@ -12,6 +12,7 @@ struct aux *esq;
 struct aux *dir;
 int bal;
 } NO, *PONT;
+
 /* cria um novo (aloca memoria e preenche valores) no com chave=ch e retorna seu endereço */
 PONT criarNovoNo(TIPOCHAVE ch){
     PONT novoNo = (PONT)malloc(sizeof(NO));
