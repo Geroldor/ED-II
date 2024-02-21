@@ -48,13 +48,3 @@ PONT criarNo(int id){
     return novoNo;
 }
 
-void insert(redBlackTree rb, PONT no){
-    if (rb->root == NULL)
-    {
-    no->color = 1;
-    rb->root = no;
-    }else{
-        
-    }
-    
-}
