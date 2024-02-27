@@ -246,10 +246,11 @@ PONT maiorAEsquerda(PONT p, PONT *ant){
     return p;
 }
 
+
 /* exclui a chave com valor igual a ch*/
 bool excluirAVL(PONT* raiz, TIPOCHAVE ch, bool* alterou){
     PONT p = *raiz;
-    if (!p){
+    if (!p){ // Se p é NULL
         *alterou = false;
         return false;
     }
@@ -270,7 +271,7 @@ bool excluirAVL(PONT* raiz, TIPOCHAVE ch, bool* alterou){
             }
         }
     }
-    else if (ch > p->chave){
+    else if (ch > p->chave){ //Se a chave inserida for menor que a do nó selecionado
         if (excluirAVL(&(p->dir), ch, alterou)){
             if (*alterou){
                 atualizarBalanceamentoTotal(p);
@@ -287,7 +288,7 @@ bool excluirAVL(PONT* raiz, TIPOCHAVE ch, bool* alterou){
             }
         }
     }
-    else{
+    else{ //se a chave é maior ou igual ao nó
         if (!p->esq || !p->dir){
             PONT aux = p;
             if (p->esq){
@@ -325,6 +326,7 @@ bool excluirAVL(PONT* raiz, TIPOCHAVE ch, bool* alterou){
     return *alterou;
 }
 
+
 /* funcao auxiliar na destruicao
 (liberacao da memoria) de uma arvore */
 void destruirAux(PONT subRaiz){
@@ -335,6 +337,7 @@ void destruirAux(PONT subRaiz){
     }
 }
 
+
 /* libera toda memoria de uma arvore e
 coloca NULL no valor da raiz */
 void destruirArvore(PONT *raiz){
@@ -342,8 +345,28 @@ void destruirArvore(PONT *raiz){
     *raiz = NULL;
 }
 
+
 //inicializa arvore
 void inicializar(PONT *raiz){
     *raiz = NULL;
 }
 
+
+int main(){
+    PONT raiz;
+    inicializar(&raiz);
+    bool alterou;
+    int n;
+    do{
+        printf("Digite um numero (ou -1 para sair): ");
+        scanf("%d", &n);
+        if (n != -1){
+            inserirAVL(&raiz, n, &alterou);
+            printf("Arvore AVL: ");
+            exibirArvore(raiz);
+            printf("\n");
+        }
+    } while (n != -1);
+    printf("Arvore AVL: ");
+    exibirArvore(raiz);
+}
