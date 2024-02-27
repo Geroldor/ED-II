@@ -369,4 +369,12 @@ int main(){
     } while (n != -1);
     printf("Arvore AVL: ");
     exibirArvore(raiz);
+    do{
+        printf("Escolha um valor para excluir: ");
+        scanf("%d", &n);
+        excluirAVL(&raiz, n, &alterou);
+        printf("Arvore AVL: ");
+        exibirArvore(raiz);
+    }while (n != -1);
+    
 }
