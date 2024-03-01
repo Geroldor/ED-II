@@ -177,6 +177,68 @@ int calculateRedNodes(Node *root) {
     return root->color == RED ? leftRedNodes + rightRedNodes + 1 : leftRedNodes + rightRedNodes;
 }
 
+int pop(Node **root, int id){
+    if(*root == NULL){
+        return 0;
+    }
+    Node *current = *root;
+    Node *parent = NULL;
+    while(current != NULL && current->id != id){
+        parent = current;
+        if(id < current->id){
+            current = current->left;
+        }else{
+            current = current->right;
+        }
+    }
+    if(current == NULL){
+        return 0;
+    }
+    if(current->left == NULL && current->right == NULL){
+        if(current->color == BLACK){
+            fixViolation(current);
+        }
+        if(parent == NULL){
+            *root = NULL;
+        }else if(parent->left == current){
+            parent->left = NULL;
+        }else{
+            parent->right = NULL;
+        }
+        free(current);
+        return 1;
+    }else if(current->left == NULL){
+        Node *temp = current;
+        if(parent == NULL){
+            *root = current->right;
+        }else if(parent->left == current){
+            parent->left = current->right;
+        }else{
+            parent->right = current->right;
+        }
+        free(temp);
+        return 1;
+    }else if(current->right == NULL){
+        Node *temp = current;
+        if(parent == NULL){
+            *root = current->left;
+        }else if(parent->left == current){
+            parent->left = current->left;
+        }else{
+            parent->right = current->left;
+        }
+        free(temp);
+        return 1;
+    }else{
+        Node *temp = current->right;
+        while(temp->left != NULL){
+            temp = temp->left;
+        }
+        current->id = temp->id;
+        return pop(&current->right, temp->id);
+    }
+}
+
 int main() {
     insert(7);
     insert(3);
@@ -190,6 +252,12 @@ int main() {
     insert(6);
     insert(13);
     print(root, 0);
+    system("sleep 5");
+    pop(&root, 18);
+    pop(&root, 8);
+    system("clear");
+    print(root, 0);
+    system("sleep 5");
     printf("Height: %d\n", calculateHeight(root));
     printf("Black Nodes: %d\n", calculateBlackNodes(root));
     printf("Red Nodes: %d\n", calculateRedNodes(root));
