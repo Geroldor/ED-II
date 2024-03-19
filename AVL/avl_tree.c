@@ -41,7 +41,7 @@ int altura(PONT p){
     if (!p){ 
         return -1;
     }
-    return 1 + max(altura(p->esq), altura(p->dir));
+    return max(altura(p->esq), altura(p->dir));
 }
 
 /* Exibe arvore Em Ordem */
@@ -358,7 +358,7 @@ int main(){
     bool alterou;
     int n;
     do{
-        printf("Digite um numero (ou -1 para sair): ");
+        printf("Digite um numero (ou 0 para sair): ");
         scanf("%d", &n);
         if (n != -1){
             inserirAVL(&raiz, n, &alterou);
@@ -366,16 +366,20 @@ int main(){
             exibirArvore(raiz);
             printf("\n");
         }
-    } while (n != -1);
+    } while (n != 0);
     printf("Arvore AVL: ");
     exibirArvore(raiz);
     printf("\n");
     do{
-        printf("Escolha um valor para excluir: ");
+        printf("Escolha um valor para excluir(digite 0 para sair): ");
         scanf("%d", &n);
         excluirAVL(&raiz, n, &alterou);
         printf("Arvore AVL: ");
         exibirArvore(raiz);
-    }while (n != -1);
+    }while (n != 0);
+
+    int k = ehAVL(raiz);
+    if(k == 1){printf("\nEsta arvore é avl");}
+    if(k == 0){printf("\nEsta arvore não é avl");}
     
 }
